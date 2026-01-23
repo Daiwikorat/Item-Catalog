@@ -66,10 +66,6 @@ export default function Show() {
     );
   }
 
-  
-
-
-
   return (
     <>
       <header className="px-[3%] py-[15px]">
