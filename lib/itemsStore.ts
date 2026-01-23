@@ -20,7 +20,7 @@ export let items: Product[] = [
     price: 25,
     category: "Accessories",
     createdAt: "2024-01-10T10:00:00Z",
-    image: "/images/water-bottle.jpg",
+    image: "/items/water-bottle.jpg",
   },
   {
     id: "2",
@@ -29,7 +29,7 @@ export let items: Product[] = [
     price: 6.5,
     category: "Food",
     createdAt: "2024-01-15T08:30:00Z",
-    image: "/images/bread.jpg",
+    image: "/items/bread.jpg",
   },
   {
     id: "3",
@@ -38,7 +38,7 @@ export let items: Product[] = [
     price: 1299,
     category: "Electronics",
     createdAt: "2023-12-01T14:20:00Z",
-    image: "/images/laptop.jpg",
+    image: "/items/laptop.jpg",
   },
   {
     id: "4",
@@ -47,7 +47,7 @@ export let items: Product[] = [
     price: 18,
     category: "Beauty",
     createdAt: "2024-01-05T09:15:00Z",
-    image: "/images/hair-oil.jpg",
+    image: "/items/hair-oil.jpg",
   },
   {
     id: "5",
@@ -56,7 +56,7 @@ export let items: Product[] = [
     price: 15,
     category: "Beauty",
     createdAt: "2024-01-05T09:20:00Z",
-    image: "/images/shampoo.jpg",
+    image: "/items/shampoo.jpg",
   },
   {
     id: "6",
@@ -65,7 +65,7 @@ export let items: Product[] = [
     price: 12,
     category: "Home",
     createdAt: "2024-01-18T16:45:00Z",
-    image: "/images/plate.jpg",
+    image: "/items/plate.jpg",
   },
   {
     id: "7",
@@ -74,7 +74,7 @@ export let items: Product[] = [
     price: 2.5,
     category: "Food",
     createdAt: "2024-01-20T11:00:00Z",
-    image: "/images/soda.jpg",
+    image: "/items/soda.jpg",
   },
   {
     id: "8",
@@ -83,6 +83,6 @@ export let items: Product[] = [
     price: 8,
     category: "Food",
     createdAt: "2024-01-22T13:10:00Z",
-    image: "/images/ice-cream.jpg",
+    image: "/items/ice-cream.jpg",
   },
 ];
