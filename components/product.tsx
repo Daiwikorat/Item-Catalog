@@ -38,6 +38,7 @@ export default function Product({ item }: ProductProps) {
         <p className="text-green-600 font-semibold text-lg mt-auto">
           ${item.price}
         </p>
+      <Link href = {`/view/${item.id}`} className="bg-blue-500 rounded-lg text-l w-[25%] h-[90%] flex items-center justify-center"> View </Link>
       <Link href = {`/edit/${item.id}`} className="bg-blue-500 rounded-lg text-l w-[25%] h-[90%] flex items-center justify-center"> Edit </Link>
       </div>
     </div>

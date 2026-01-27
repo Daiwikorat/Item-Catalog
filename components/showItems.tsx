@@ -48,7 +48,11 @@ export default function Show() {
   const filterItems = () => {
     if (!items) return;
 
-    const filter = items.filter((item) => item.title.includes(search));
+    const query = search.trim().toLowerCase();
+
+    const filter = items.filter((item) =>
+      item.title.toLowerCase().includes(query),
+    );
 
     setFilterItems(filter);
   };
@@ -84,6 +88,14 @@ export default function Show() {
 
     if (!home && !beauty && !elec && !acc && !food) {
       fetchItems();
+    }
+
+    if (search) {
+      const query = search.trim().toLowerCase();
+
+      newFilter = newFilter.filter((item) =>
+        item.title.toLowerCase().includes(query),
+      );
     }
 
     setFilteron(false);
@@ -203,7 +215,7 @@ export default function Show() {
                     setBeauty(!beauty);
                   }}
                 />{" "}
-                Hair Care{" "}
+                Beauty{" "}
               </li>
               <li>
                 <input
@@ -236,7 +248,9 @@ export default function Show() {
             <Product key={item.id} item={item}></Product>
           ))
         ) : (
-          <p>No Item Found (●'◡'●)</p>
+          <div className="flex items-center justify-center h-screen">
+            <h1 className="text-xl font-semibold">No Items Found (┬┬﹏┬┬)</h1>
+          </div>
         )}
       </div>
     </>
