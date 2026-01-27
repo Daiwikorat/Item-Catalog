@@ -13,7 +13,7 @@ interface ItemData {
 }
 
 // Helper function
-function findItem(id: string): ItemData | undefined {
+function findItemGET(id: string): ItemData | undefined {
   return items.find((item: ItemData) => item.id === id);
 }
 
@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
   const id = searchParams.get("id");
 
   if (id) {
-    const item = findItem(id);
+    const item = findItemGET(id);
 
     if (!item) {
       return NextResponse.json({ message: "Item not Found" }, { status: 404 });
@@ -36,15 +36,17 @@ export async function GET(request: NextRequest) {
   return NextResponse.json(items, { status: 200 });
 }
 
-export async function POST(request: NextRequest) {
+export async function PATCH(request: NextRequest) {
   try {
   const body = await request.json();
-  const { id, title, description } = body;
+  const { id, title, description, price, category} = body;
 
-  if (id && title && description) {
-    let item = findItem(id);
-    items[id].title = title;
-    items[id].description = description;
+  if (id && title && description && price && category) {
+    items[id-1].title = title;
+    items[id-1].description = description;
+    items[id-1].price = price;
+    items[id-1].category = category;
+    console.log(items[id].title)
     return NextResponse.json({message: "Item Updated"},{status:200})
   }
   else {
