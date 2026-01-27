@@ -36,6 +36,30 @@ export async function GET(request: NextRequest) {
   return NextResponse.json(items, { status: 200 });
 }
 
+// export async function POST(request: NextRequest) {
+//   try {
+//     const body = await request.json();
+//     const { title:string, description:string, price:number, category:string } = body;
+
+//     let lastitem = items.reduce((max,curr) =>
+//       curr.id > max.id ? curr:max
+//     )
+
+//     let newitem = {
+//       id: lastitem.id + 1,
+//       title: title,
+//       description: description,
+//       price: price,
+//       category: category
+//     }
+
+//     items.push(newitem)
+
+//   } catch(e) {
+//     console.log(e);
+//   }
+// }
+
 export async function PATCH(request: NextRequest) {
   try {
   const body = await request.json();
