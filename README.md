@@ -13,7 +13,7 @@ npm run build
 # Start the project
 npm start
 
-Implemented Features:
+# Implemented Features:
 View Items Page:
 1) Fetching All items from itemsStore.ts and loading on UI
 2) Responsive UI for moblie first
@@ -30,8 +30,8 @@ Edit Items Page
 Specific Item view page:
 1) Specific item's data can be seen (Non editable + server component).
 
-Git History:
-b35daff HEAD@{0}: rebase (start): checkout HEAD~2
+# Git History:
+` b35daff HEAD@{0}: rebase (start): checkout HEAD~2
 590b103 HEAD@{1}: rebase (finish): returning to refs/heads/feature
 590b103 HEAD@{2}: rebase (squash): Feat: Error Handling and Layout Added
 5c08cfa HEAD@{3}: rebase (squash): # This is a combination of 2 commits.
@@ -83,5 +83,5 @@ ed33ac5 feat: Add Page UI Completed
 bdfc379 Feat: Edit Page added (Backend Bug issue on POST)
 862e8ba feat: Filter items from search bar
 11cb83b Feat: Item Listing Page
-86cef3f (origin/main) Initial commit from Create Next App
+86cef3f (origin/main) Initial commit from Create Next App `
 
