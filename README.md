@@ -1,11 +1,16 @@
-Description:
-Item Catelog test demonstrating nextjs, reactjs, git workflow and learnings. 
-
-Setup Steps: 
+# Clone the repository
 git clone https://github.com/Daiwikorat/Item-Catalog.git
+
+# Navigate to project directory
 cd item-catalog
+
+# Install dependencies
 npm install
+
+# Build the project
 npm run build
+
+# Start the project
 npm start
 
 Implemented Features:
@@ -32,9 +37,9 @@ b35daff HEAD@{0}: rebase (start): checkout HEAD~2
 5c08cfa HEAD@{3}: rebase (squash): # This is a combination of 2 commits.
 f2687ba HEAD@{4}: rebase (start): checkout HEAD~3
 6d76cc9 HEAD@{5}: commit: WIP: temporary changes
-4ce6c85 HEAD@{6}: merge Responsive: Merge made by the 'ort' strategy.
+4ce6c85 HEAD@{6}: merge Responsive: Merge made by the 'ort' strategy
 f2687ba HEAD@{7}: cherry-pick: Feat: Error Handling and Layout Added
-6cae628 HEAD@{8}: commit: Comflict creation
+6cae628 HEAD@{8}: commit: Conflict creation
 b35daff HEAD@{9}: checkout: moving from Responsive to feature
 7f5e17e HEAD@{10}: checkout: moving from feature to Responsive
 b35daff HEAD@{11}: checkout: moving from Responsive to feature
@@ -62,10 +67,12 @@ bdfc379 HEAD@{30}: commit: Feat: Edit Page added (Backend Bug issue on POST)
 86cef3f HEAD@{33}: Branch: renamed refs/heads/main to refs/heads/feature
 86cef3f HEAD@{35}: Branch: renamed refs/heads/master to refs/heads/main
 86cef3f HEAD@{37}: commit (initial): Initial commit from Create Next App
+
+
 590b103 (feature) Feat: Error Handling and Layout Added
 4ce6c85 (origin/feature) Merge branch 'Responsive' into feature
 f2687ba Feat: Error Handling and Layout Added
-6cae628 Comflict creation
+6cae628 Conflict creation
 7f5e17e Feat: Error Handling and Layout Added
 b35daff (HEAD, origin/Responsive) fix: Responsiveness, Validation Updates
 e1de94c View Page Responsiveness
@@ -77,3 +84,4 @@ bdfc379 Feat: Edit Page added (Backend Bug issue on POST)
 862e8ba feat: Filter items from search bar
 11cb83b Feat: Item Listing Page
 86cef3f (origin/main) Initial commit from Create Next App
+
