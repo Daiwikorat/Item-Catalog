@@ -27,6 +27,7 @@ export default async function View({
     displayData = allData.find((item) => item.id === id);
   } catch (error) {
     console.error("Fetch error:", error);
+    throw new Error("Counld't Fetch Items Buddy :(");
   }
 
   if (!displayData) {

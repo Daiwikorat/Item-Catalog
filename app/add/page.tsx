@@ -30,6 +30,7 @@ export default function Add() {
   const [imageset, setImageset] = useState<boolean>(false);
   const [formvalidity, setFormvalidity] = useState<boolean>(false);
   const [submited, setSubmited] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>("");
 
   const handleImageClick = () => {
     fileInputRef.current?.click();
@@ -74,14 +75,19 @@ export default function Add() {
   };
 
   async function handleAdd() {
-    setSubmited(true);
-    const isValid = checkFormValidity(product);
-    if (!isValid) {
-      return;
-    }
+    try {
+      setSubmited(true);
+      const isValid = checkFormValidity(product);
+      if (!isValid) {
+        return;
+      }
 
-    console.log("Product to Add:", product);
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_URL}/api/items`, product);
+      console.log("Product to Add:", product);
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_URL}/api/items`,
+        product,
+      );
+    
 
     if (res.status === 201) {
       alert("Item added successfully :D");
@@ -89,6 +95,13 @@ export default function Add() {
 
     router.refresh();
     router.push("/");
+    } catch (error) {
+      setError("Failed to ADD ITEM");
+    }
+  }
+
+  if(error) {
+    throw new Error(error);
   }
 
   const handleChange = (
@@ -220,7 +233,7 @@ export default function Add() {
                         className="w-full bg-transparent outline-none text-sm sm:text-base text-gray-800 placeholder:text-gray-500 resize-none"
                       />
                     </div>
-                    {submited &&  !(product.description.trim().length >= 10) && (
+                    {submited && !(product.description.trim().length >= 10) && (
                       <p className="text-red-500 text-xs sm:text-sm mt-1 ml-1">
                         Minimum 10 character Description is required
                       </p>

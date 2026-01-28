@@ -57,6 +57,10 @@ export default function Edit({ params }: { params: Promise<{ id: string }> }) {
     fetchItemData();
   }, [id]);
 
+  if (error) {
+    throw new Error(error);
+  }
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
@@ -127,6 +131,7 @@ export default function Edit({ params }: { params: Promise<{ id: string }> }) {
       router.refresh();
     } catch (err) {
       alert("Failed to update item");
+      setError("Failed to update Item")
       console.error(err);
     }
   };

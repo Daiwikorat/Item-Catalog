@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState, useEffect, ChangeEvent } from "react";
 import Product from "./product";
 import Image from "next/image";
+import Loading from './loading';
 
 interface Items {
   id: string;
@@ -23,6 +24,8 @@ export default function Show() {
   const [search, setSearch] = useState<string>("");
   const [filteron, setFilteron] = useState<boolean>();
 
+  const [err, setError] = useState<string | null>(null);
+
   // Filter for the catagory
   const [acc, setAcc] = useState<boolean>(false);
   const [food, setFood] = useState<boolean>(false);
@@ -37,8 +40,13 @@ export default function Show() {
       setItems(res.data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      setError("Failed to fetch items");
+      setLoading(false);
     }
+  }
+
+  if (err) {
+    throw new Error(err);
   }
 
   const handleChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
@@ -115,9 +123,7 @@ export default function Show() {
   if (loading) {
     return (
       <>
-        <div className="flex items-center justify-center h-screen">
-          <h1 className="text-xl font-semibold">Loading...</h1>
-        </div>
+        <Loading></Loading>
       </>
     );
   }
