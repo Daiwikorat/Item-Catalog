@@ -58,16 +58,18 @@ export default function Show() {
   };
 
   const applyFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault(); // Took 15 min to understand why page was refreashing itself, then found this guy :(
+    e.preventDefault(); 
 
     let newFilter: Items[] = [];
     let filter;
     if (home) {
-      newFilter.push(...items.filter((item) => item.category === "Home"));
+      newFilter.push(
+        ...items.filter((item) => item.category === "Home"));
     }
 
     if (beauty) {
-      newFilter.push(...items.filter((item) => item.category === "Beauty"));
+      newFilter.push(
+        ...items.filter((item) => item.category === "Beauty"));
     }
 
     if (elec) {
@@ -124,136 +126,168 @@ export default function Show() {
     <>
       <header className="px-[3%] py-[15px]">
         <div className="bg-[radial-gradient(circle,_#EEAECA_0%,_#94BBE9_100%)] w-full h-[50px] rounded-xl flex items-center justify-between px-[2%]">
-          <div className="flex gap-5 bg-gradient-to-t from-[#f43b47]/20 to-[#453a94]/20 rounded-2xl h-[80%] w-[40%] px-[2%]">
+          {/* Search Bar - responsive width */}
+          <div className="flex gap-2 sm:gap-5 bg-gradient-to-t from-[#f43b47]/20 to-[#453a94]/20 rounded-2xl h-[80%] w-[55%] sm:w-[40%] px-[2%]">
             <Image
               src="/search.png"
               alt="Search Icon"
               width={30}
               height={30}
-              className="self-center"
+              className="self-center w-[20px] h-[20px] sm:w-[30px] sm:h-[30px]"
             />
             <input
               type="text"
               placeholder="Search Item"
-              className="w-full h-8 rounded-sm bg-transparent outline-none pl-3 placeholder:text-gray-600 placeholder:text-sm self-center text-gray-800"
+              className="w-full h-8 rounded-sm bg-transparent outline-none pl-1 sm:pl-3 placeholder:text-gray-600 placeholder:text-xs sm:placeholder:text-sm self-center text-gray-800 text-sm"
               onChange={handleChangeSearch}
             />
           </div>
 
-          <div className="flex gap-4 items-center h-[80%]">
+          {/* Buttons - responsive sizing */}
+          <div className="flex gap-2 sm:gap-4 items-center h-[80%]">
             {/* Filter Button */}
             <div
               onClick={() => setFilteron(!filteron)}
-              className="bg-[radial-gradient(circle,_#3F5EFB_0%,_#FC466B_100%)] rounded-lg h-full flex items-center justify-center px-4 cursor-pointer hover:scale-105 transition-transform"
+              className="bg-[radial-gradient(circle,_#3F5EFB_0%,_#FC466B_100%)] rounded-lg h-full flex items-center justify-center px-2 sm:px-4 cursor-pointer hover:scale-105 transition-transform"
             >
               <Image
                 src="/filter.png"
                 alt="Filter"
                 width={25}
                 height={25}
-                className="self-center"
+                className="self-center w-[18px] h-[18px] sm:w-[25px] sm:h-[25px]"
               />
             </div>
 
             {/* Add Item Button */}
             <Link
               href={`/add`}
-              className="bg-orange-500 rounded-lg h-full flex items-center justify-center px-6 text-white text-sm font-medium cursor-pointer hover:bg-orange-600 hover:scale-105 transition-transform"
+              className="bg-orange-500 rounded-lg h-full flex items-center justify-center px-3 sm:px-6 text-white text-xs sm:text-sm font-medium cursor-pointer hover:bg-orange-600 hover:scale-105 transition-transform whitespace-nowrap"
             >
-              Add Item
+              <span className="hidden sm:inline">Add Item</span>
+              <span className="sm:hidden">Add</span>
             </Link>
           </div>
         </div>
       </header>
 
+      {/* Filter Modal - responsive positioning and sizing */}
       {filteron && (
-        <div className="bg-white rounded-xl flex flex-col justify-center w-[20%] h-[35%] ml-[75%] mt-[-1%] absolute z-1">
-          <h1 className="font-bold mx-auto">Enter Your filter items</h1>
+        <div
+          className="absolute z-10 mt-2 right-2 sm:right-6 md:right-10 w-[90%] sm:w-[60%] md:w-[40%] lg:w-[22%] bg-white rounded-xl p-4 shadow-lg"
+        >
+          <h1 className="font-bold mx-auto mb-3 text-sm sm:text-base">
+            Enter Your filter items
+          </h1>
           <form className="flex flex-col">
-            <ul className="mx-[8%]">
-              <li>
+            <ul className="mx-[8%] space-y-2 text-sm sm:text-base">
+              <li className="flex items-center gap-2">
                 <input
                   type="checkbox"
                   name="catagory"
                   id="Accessories"
                   checked={acc}
-                  onChange={() => {
-                    setAcc(!acc);
-                  }}
-                />{" "}
-                Accessories{" "}
+                  onChange={() => setAcc(!acc)}
+                  className="cursor-pointer"
+                />
+                <label
+                  htmlFor="Accessories"
+                  className="cursor-pointer break-words whitespace-normal"
+                >
+                  Accessories
+                </label>
               </li>
 
-              <li>
+              <li className="flex items-center gap-2">
                 <input
                   type="checkbox"
                   name="catagory"
                   id="Electronics"
                   checked={elec}
-                  onChange={() => {
-                    setElec(!elec);
-                  }}
-                />{" "}
-                Electronics{" "}
+                  onChange={() => setElec(!elec)}
+                  className="cursor-pointer"
+                />
+                <label
+                  htmlFor="Electronics"
+                  className="cursor-pointer break-words whitespace-normal"
+                >
+                  Electronics
+                </label>
               </li>
 
-              <li>
+              <li className="flex items-center gap-2">
                 <input
                   type="checkbox"
                   name="catagory"
                   id="Food"
                   checked={food}
-                  onChange={() => {
-                    setFood(!food);
-                  }}
-                />{" "}
-                Food{" "}
+                  onChange={() => setFood(!food)}
+                  className="cursor-pointer break-words whitespace-normal"
+                />
+                <label
+                  htmlFor="Food"
+                  className="cursor-pointer break-words whitespace-normal"
+                >
+                  Food
+                </label>
               </li>
-              <li>
+
+              <li className="flex items-center gap-2">
                 <input
                   type="checkbox"
                   name="catagory"
                   id="Beauty"
                   checked={beauty}
-                  onChange={() => {
-                    setBeauty(!beauty);
-                  }}
-                />{" "}
-                Beauty{" "}
+                  onChange={() => setBeauty(!beauty)}
+                  className="cursor-pointer"
+                />
+                <label
+                  htmlFor="Beauty"
+                  className="cursor-pointer break-words whitespace-normal"
+                >
+                  Beauty
+                </label>
               </li>
-              <li>
+
+              <li className="flex items-center gap-2">
                 <input
                   type="checkbox"
                   name="catagory"
                   id="Home"
                   checked={home}
-                  onChange={() => {
-                    setHome(!home);
-                  }}
-                />{" "}
-                Home Items{" "}
+                  onChange={() => setHome(!home)}
+                  className="cursor-pointer"
+                />
+                <label
+                  htmlFor="Home"
+                  className="cursor-pointer break-words whitespace-normal"
+                >
+                  Home Items
+                </label>
               </li>
             </ul>
 
             <button
               onClick={(e) => applyFilter(e)}
-              className="w-[30%] mx-auto bg-blue-500 text-white rounded-lg"
+              className="w-[50%] sm:w-[30%] mx-auto bg-blue-500 text-white rounded-lg py-2 mt-4 hover:bg-blue-600 transition-colors text-sm sm:text-base"
             >
-              {" "}
-              Apply{" "}
+              Apply
             </button>
           </form>
         </div>
       )}
 
-      <div className="px-10 grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {/* Products Grid - already responsive */}
+      <div className="px-4 sm:px-10 grid gap-3 sm:gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-4">
         {filteredItems.length > 0 ? (
           filteredItems.map((item) => (
             <Product key={item.id} item={item}></Product>
           ))
         ) : (
-          <div className="flex items-center justify-center h-screen">
-            <h1 className="text-xl font-semibold">No Items Found (┬┬﹏┬┬)</h1>
+          <div className="col-span-full flex items-center justify-center min-h-[50vh]">
+            <h1 className="text-lg sm:text-xl font-semibold text-center px-4">
+              No Items Found (┬┬﹏┬┬)
+            </h1>
           </div>
         )}
       </div>

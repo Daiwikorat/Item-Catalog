@@ -36,7 +36,7 @@ export default function Edit({ params }: { params: Promise<{ id: string }> }) {
   useEffect(() => {
     async function fetchItemData() {
       try {
-        const res = await axios.get("/api/items");
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/items`);
         const foundItem = res.data.find((item: ItemData) => item.id === id);
 
         if (foundItem) {
@@ -284,8 +284,6 @@ export default function Edit({ params }: { params: Promise<{ id: string }> }) {
                     name="price"
                     type="number"
                     value={formData.price}
-                    min="1"
-                    max="5000"
                     onChange={handleChange}
                     className="w-full border-2 border-gray-200 rounded-lg p-3 focus:outline-none focus:border-blue-500 transition-colors"
                     placeholder="0.00"

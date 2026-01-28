@@ -1,3 +1,4 @@
+// ./app/view/[id]/page.tsx
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,11 +19,10 @@ export default async function View({
 }) {
   const resolvedParams = await params;
   const { id } = resolvedParams;
-  const baseURL = "http://localhost:3000"
   let displayData: ItemData | undefined;
 
   try {
-    const res = await axios.get(`${baseURL}/api/items`);
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/items`);
     const allData: ItemData[] = res.data;
     displayData = allData.find((item) => item.id === id);
   } catch (error) {
@@ -82,7 +82,9 @@ export default async function View({
                 </div>
 
                 <div>
-                  <h2 className="text-xs sm:text-sm text-gray-500">Description</h2>
+                  <h2 className="text-xs sm:text-sm text-gray-500">
+                    Description
+                  </h2>
                   <p className="text-sm sm:text-base text-gray-700 bg-gray-200 p-3 sm:p-4 rounded-md">
                     {displayData.description}
                   </p>
@@ -90,7 +92,9 @@ export default async function View({
 
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center">
                   <div className="bg-black/20 px-3 sm:px-[2%] py-2 rounded-lg w-full sm:w-auto">
-                    <h2 className="text-xs sm:text-sm text-gray-500">Category</h2>
+                    <h2 className="text-xs sm:text-sm text-gray-500">
+                      Category
+                    </h2>
                     <p className="text-sm sm:text-base text-gray-800 font-medium">
                       {displayData.category}
                     </p>

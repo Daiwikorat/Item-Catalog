@@ -29,6 +29,7 @@ export default function Add() {
 
   const [imageset, setImageset] = useState<boolean>(false);
   const [formvalidity, setFormvalidity] = useState<boolean>(false);
+  const [submited, setSubmited] = useState<boolean>(false);
 
   const handleImageClick = () => {
     fileInputRef.current?.click();
@@ -60,23 +61,27 @@ export default function Add() {
   };
 
   const checkFormValidity = (data: ItemData) => {
-    if (
+    const valid =
       data.title.trim() !== "" &&
-      data.title.trim().length >= 3 && 
+      data.title.trim().length >= 3 &&
       data.description.trim() !== "" &&
       data.description.trim().length >= 10 &&
       data.category.trim() !== "" &&
-      data.price > 0
-    ) {
-      setFormvalidity(true);
-    } else {
-      setFormvalidity(false);
-    }
+      data.price > 0;
+
+    setFormvalidity(valid);
+    return valid;
   };
 
   async function handleAdd() {
+    setSubmited(true);
+    const isValid = checkFormValidity(product);
+    if (!isValid) {
+      return;
+    }
+
     console.log("Product to Add:", product);
-    const res = await axios.post("/api/items", product);
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_URL}/api/items`, product);
 
     if (res.status === 201) {
       alert("Item added successfully :D");
@@ -193,9 +198,9 @@ export default function Add() {
                         className="w-full bg-transparent outline-none text-sm sm:text-base font-semibold text-gray-800 placeholder:text-gray-500"
                       />
                     </div>
-                    {!product.title.trim() && (
+                    {submited && !(product.title.trim().length >= 3) && (
                       <p className="text-red-500 text-xs sm:text-sm mt-1 ml-1">
-                        Product name is required
+                        Minimum 3 Character Product name is required
                       </p>
                     )}
                   </div>
@@ -215,9 +220,9 @@ export default function Add() {
                         className="w-full bg-transparent outline-none text-sm sm:text-base text-gray-800 placeholder:text-gray-500 resize-none"
                       />
                     </div>
-                    {!product.description.trim() && (
+                    {submited &&  !(product.description.trim().length >= 10) && (
                       <p className="text-red-500 text-xs sm:text-sm mt-1 ml-1">
-                        Description is required
+                        Minimum 10 character Description is required
                       </p>
                     )}
                   </div>
@@ -244,7 +249,7 @@ export default function Add() {
                           <option value="Home">Home</option>
                         </select>
                       </div>
-                      {!product.category && (
+                      {submited && !product.category && (
                         <p className="text-red-500 text-xs sm:text-sm mt-1 ml-1">
                           Please select a category
                         </p>
@@ -268,7 +273,7 @@ export default function Add() {
                           className="w-full bg-transparent outline-none text-sm sm:text-base font-bold text-gray-800 placeholder:text-gray-500"
                         />
                       </div>
-                      {product.price <= 0 && (
+                      {submited && product.price <= 0 && (
                         <p className="text-red-500 text-xs sm:text-sm mt-1 ml-1">
                           Price must be greater than zero
                         </p>
@@ -281,12 +286,11 @@ export default function Add() {
                     <button
                       type="button"
                       onClick={handleAdd}
-                      disabled={!formvalidity}
                       className="w-full sm:w-auto sm:min-w-[200px] text-center bg-[#e14505] hover:bg-[#c83d04] disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all hover:scale-[1.03] active:scale-95"
                     >
                       ADD PRODUCT
                     </button>
-                    {!formvalidity && (
+                    {submited && !formvalidity && (
                       <p className="text-orange-600 text-xs sm:text-sm mt-2">
                         Please fill all required fields correctly
                       </p>
