@@ -1,5 +1,6 @@
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface ItemData {
@@ -106,12 +107,12 @@ export default async function View({
 
                 {/* Action */}
                 <div className="mt-auto pt-6">
-                  <a
-                    href="#"
+                  <Link
+                    href="/"
                     className="inline-block w-[40%] text-center bg-[#e14505] hover:bg-[#c83d04] text-white font-bold py-3 rounded-lg shadow-md transition-transform hover:scale-[1.03]"
                   >
                     Order Now
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

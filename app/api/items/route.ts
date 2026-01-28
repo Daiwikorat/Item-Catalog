@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-// Assuming this path is correct based on your snippet
 import { items } from "../../../lib/itemsStore";
 
 interface ItemData {
@@ -12,18 +11,25 @@ interface ItemData {
   image?: string;
 }
 
-// Helper function
-function findItemGET(id: string): ItemData | undefined {
-  return items.find((item: ItemData) => item.id === id);
+interface CreateItemADD {
+  title: string;
+  description: string;
+  price: number;
+  category: string;
+  image?: string;
 }
 
-// App Router uses 'request: NextRequest', not (req, res)
+
+function findItemIndex(id: string): number {
+  return items.findIndex((item: ItemData) => item.id === id);
+}
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const id = searchParams.get("id");
 
   if (id) {
-    const item = findItemGET(id);
+    const item = items.find((item) => item.id === id);
 
     if (!item) {
       return NextResponse.json({ message: "Item not Found" }, { status: 404 });
@@ -32,54 +38,79 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  // Return all items
   return NextResponse.json(items, { status: 200 });
 }
 
-// export async function POST(request: NextRequest) {
-//   try {
-//     const body = await request.json();
-//     const { title:string, description:string, price:number, category:string } = body;
+export async function POST(request: NextRequest) {
+  try {
+    const body: CreateItemADD = await request.json();
+    const { title, description, price, category, image } = body;
 
-//     let lastitem = items.reduce((max,curr) =>
-//       curr.id > max.id ? curr:max
-//     )
+    if (!title || !description || price == null || !category) {
+      return NextResponse.json(
+        { message: "All fields are required" },
+        { status: 400 },
+      );
+    }
 
-//     let newitem = {
-//       id: lastitem.id + 1,
-//       title: title,
-//       description: description,
-//       price: price,
-//       category: category
-//     }
+    const maxId =
+      items.length > 0 ? Math.max(...items.map((i) => Number(i.id))) : 0;
 
-//     items.push(newitem)
+    const newId: string = String(maxId + 1);
 
-//   } catch(e) {
-//     console.log(e);
-//   }
-// }
+    let newitem = {
+      id: newId,
+      title: title,
+      description: description,
+      price: Number(price),
+      category: category,
+      createdAt: new Date().toISOString(),
+      image: image || undefined,
+    };
+
+    items.push(newitem);
+
+    return NextResponse.json(
+      { message: "Item created successfully", item: newitem },
+      { status: 201 },
+    );
+  } catch (e) {
+    console.log(e);
+    return NextResponse.json(
+      { message: "Invalid JSON or server error" },
+      { status: 500 },
+    );
+  }
+}
 
 export async function PATCH(request: NextRequest) {
   try {
-  const body = await request.json();
-  const { id, title, description, price, category} = body;
+    const body = await request.json();
+    const { id, title, description, price, category, image } = body;
 
-  if (id && title && description && price && category) {
-    items[id-1].title = title;
-    items[id-1].description = description;
-    items[id-1].price = price;
-    items[id-1].category = category;
-    console.log(items[id].title)
-    return NextResponse.json({message: "Item Updated"},{status:200})
-  }
-  else {
-    return NextResponse.json({message: "Data Mismatch from data base"},{status:404})
-  } }
-  catch (err) {
+    const index = findItemIndex(String(id));
+
+    if (id && title && description && price && category) {
+      items[index].title = title;
+      items[index].description = description;
+      items[index].price = price;
+      items[index].category = category;
+      
+      if (image !== undefined) {
+        items[index].image = image || undefined;
+      }
+
+      return NextResponse.json({ message: "Item Updated" }, { status: 200 });
+    } else {
+      return NextResponse.json(
+        { message: "Data Mismatch from database" },
+        { status: 404 },
+      );
+    }
+  } catch (err) {
     return NextResponse.json(
-      {message: "Error Processing Req"},
-      {status:500}
-    )
+      { message: "Error Processing Req" },
+      { status: 500 },
+    );
   }
 }

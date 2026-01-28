@@ -123,10 +123,7 @@ export default function Show() {
   return (
     <>
       <header className="px-[3%] py-[15px]">
-        <div
-          className="bg-[radial-gradient(circle,_#EEAECA_0%,_#94BBE9_100%)]
- w-full h-[50px] rounded-xl flex items-center justify-between px-[2%]"
-        >
+        <div className="bg-[radial-gradient(circle,_#EEAECA_0%,_#94BBE9_100%)] w-full h-[50px] rounded-xl flex items-center justify-between px-[2%]">
           <div className="flex gap-5 bg-gradient-to-t from-[#f43b47]/20 to-[#453a94]/20 rounded-2xl h-[80%] w-[40%] px-[2%]">
             <Image
               src="/search.png"
@@ -135,29 +132,36 @@ export default function Show() {
               height={30}
               className="self-center"
             />
-
             <input
               type="text"
               placeholder="Search Item"
-              className="w-70 h-8 rounded-sm bg-[#ffffff] pl-3 placeholder:text-gray-500 placeholder:text-sm self-center"
+              className="w-full h-8 rounded-sm bg-transparent outline-none pl-3 placeholder:text-gray-600 placeholder:text-sm self-center text-gray-800"
               onChange={handleChangeSearch}
-            ></input>
+            />
           </div>
 
-          <div
-            onClick={() => {
-              setFilteron(!filteron);
-            }}
-            className="bg-[radial-gradient(circle,_#3F5EFB_0%,_#FC466B_100%)]
- rounded-lg h-[70%] flex items-center gap-5 px-[1%]"
-          >
-            <Image
-              src="/filter.png"
-              alt="Filter"
-              width={30}
-              height={30}
-              className="self-center"
-            />
+          <div className="flex gap-4 items-center h-[80%]">
+            {/* Filter Button */}
+            <div
+              onClick={() => setFilteron(!filteron)}
+              className="bg-[radial-gradient(circle,_#3F5EFB_0%,_#FC466B_100%)] rounded-lg h-full flex items-center justify-center px-4 cursor-pointer hover:scale-105 transition-transform"
+            >
+              <Image
+                src="/filter.png"
+                alt="Filter"
+                width={25}
+                height={25}
+                className="self-center"
+              />
+            </div>
+
+            {/* Add Item Button */}
+            <Link
+              href={`/add`}
+              className="bg-orange-500 rounded-lg h-full flex items-center justify-center px-6 text-white text-sm font-medium cursor-pointer hover:bg-orange-600 hover:scale-105 transition-transform"
+            >
+              Add Item
+            </Link>
           </div>
         </div>
       </header>
