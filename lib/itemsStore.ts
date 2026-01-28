@@ -77,7 +77,7 @@ export let items: Product[] = [
     image: "/items/soda.jpg",
   },
   {
-    id: "8",
+    id: "9",
     title: "Artisan Vanilla Ice Cream",
     description: "Made with real Madagascar vanilla beans and fresh cream.",
     price: 8,
